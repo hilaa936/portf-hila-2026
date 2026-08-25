@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f5f7fa;
+  --bg: #fcfbf8;
   --bg-elevated: #ffffff;
-  --fg: #0f172a;
-  --fg-muted: #475569;
-  --fg-subtle: #64748b;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --accent: #1e3a5f;
-  --accent-soft: #e8eef6;
-  --accent-hover: #152a45;
-  --gradient-from: #eef2f7;
-  --gradient-via: #f5f7fa;
-  --gradient-to: #e8f0f6;
-  --ring: rgba(30, 58, 95, 0.25);
+  --fg: #101a3a;
+  --fg-muted: #5c6785;
+  --fg-subtle: #7a849e;
+  --border: rgba(16, 26, 58, 0.1);
+  --border-strong: rgba(16, 26, 58, 0.16);
+  --accent: #6424f5;
+  --accent-soft: rgba(100, 36, 245, 0.1);
+  --accent-hover: #5319d4;
+  --teal: #20c9c5;
+  --bg-elev: #f3f1fb;
+  --gradient-from: #fbfaf7;
+  --gradient-via: #fcfbf8;
+  --gradient-to: #f7f5ff;
+  --ring: rgba(100, 36, 245, 0.28);
+  --shadow: 0 10px 30px rgba(16, 26, 58, 0.07);
 }
 
 @theme inline {
@@ -28,8 +31,9 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-hover: var(--accent-hover);
-  --font-sans: var(--font-source-sans);
-  --font-display: var(--font-syne);
+  --color-teal: var(--teal);
+  --font-sans: var(--font-rubik);
+  --font-display: var(--font-rubik);
 }
 
 html {
@@ -51,9 +55,13 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 8% -10%, rgba(100, 36, 245, 0.12), transparent 40%),
+    radial-gradient(circle at 100% 0%, rgba(32, 201, 197, 0.1), transparent 34%),
+    linear-gradient(180deg, var(--gradient-from) 0%, var(--gradient-via) 48%, var(--gradient-to) 100%);
   color: var(--fg);
-  font-family: var(--font-source-sans), "Segoe UI", sans-serif;
+  font-family: var(--font-rubik), system-ui, sans-serif;
+  min-height: 100dvh;
 }
 
 ::selection {
@@ -63,9 +71,10 @@ body {
 
 .hero-glow {
   background:
-    radial-gradient(ellipse 80% 55% at 50% -10%, rgba(30, 58, 95, 0.09), transparent 55%),
-    radial-gradient(ellipse 50% 40% at 100% 20%, rgba(100, 140, 180, 0.08), transparent 50%),
-    linear-gradient(180deg, var(--gradient-from), var(--gradient-via) 45%, var(--bg));
+    radial-gradient(circle at 12% -8%, rgba(100, 36, 245, 0.14), transparent 42%),
+    radial-gradient(circle at 92% 8%, rgba(32, 201, 197, 0.12), transparent 36%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(100, 36, 245, 0.06), transparent 55%),
+    linear-gradient(180deg, var(--gradient-from), var(--gradient-via) 50%, transparent);
 }
 
 .section-pad {
@@ -87,4 +96,63 @@ body {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(100, 36, 245, 0.28);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  background: #fff;
+  border-color: var(--border);
+  color: var(--fg);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.soft-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
 }

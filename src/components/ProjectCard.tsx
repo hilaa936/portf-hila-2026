@@ -2,7 +2,8 @@
 
 import { useState, type ReactNode } from "react";
 import Image from "next/image";
-import type { Project, ProjectImage } from "@/data/portfolioData";
+import type { Project, ProjectImage } from "@/data/siteContent";
+import { useContent } from "@/i18n/locale";
 
 type ProjectCardProps = {
   project: Project;
@@ -11,9 +12,15 @@ type ProjectCardProps = {
 
 function PlaceholderVisual({ note }: { note?: string }) {
   return (
-    <div className="flex min-h-[280px] w-full flex-col items-center justify-center gap-3 rounded-xl border border-border bg-gradient-to-br from-accent-soft via-bg to-[#dbe4ef] px-6 text-center">
-      <div className="rounded-full border border-border bg-bg-elevated px-3 py-1 text-xs font-medium uppercase tracking-wider text-accent">
-        Screenshot placeholder
+    <div
+      className="flex min-h-[280px] w-full flex-col items-center justify-center gap-3 rounded-[1.25rem] border border-border px-6 text-center"
+      style={{
+        background:
+          "radial-gradient(circle at 30% 20%, rgba(100,36,245,0.1), transparent 50%), radial-gradient(circle at 80% 80%, rgba(32,201,197,0.08), transparent 45%), #fff",
+      }}
+    >
+      <div className="rounded-full border border-border bg-bg px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+        Screenshot
       </div>
       <p className="max-w-sm text-sm text-fg-muted">
         {note ?? "Add screenshot paths in src/data/yourContent.ts"}
@@ -24,12 +31,12 @@ function PlaceholderVisual({ note }: { note?: string }) {
 
 function BrowserChrome({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-bg-elevated shadow-[0_1px_0_rgba(15,23,42,0.04)]">
-      <div className="flex items-center gap-2 border-b border-border bg-[#f1f5f9] px-3 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#cbd5e1]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#cbd5e1]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#cbd5e1]" />
-        <div className="ml-2 h-5 flex-1 rounded-md border border-border bg-white/80" />
+    <div
+      className="overflow-hidden rounded-[1.25rem] border border-border bg-bg-elevated"
+      style={{ boxShadow: "var(--shadow)" }}
+    >
+      <div className="flex items-center border-b border-border px-3 py-2.5" style={{ background: "#f3f1fb" }}>
+        <div className="h-5 w-full rounded-full border border-border bg-white/90" />
       </div>
       {children}
     </div>
@@ -39,7 +46,10 @@ function BrowserChrome({ children }: { children: ReactNode }) {
 function PhoneChrome({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto w-full max-w-[280px] sm:max-w-[300px]">
-      <div className="rounded-[1.75rem] border border-border bg-[#0f172a] p-2 shadow-[0_1px_0_rgba(15,23,42,0.04)]">
+      <div
+        className="rounded-[1.75rem] border border-border p-2"
+        style={{ background: "#101a3a", boxShadow: "var(--shadow)" }}
+      >
         <div className="mb-2 flex justify-center">
           <span className="h-1.5 w-16 rounded-full bg-white/20" />
         </div>
@@ -62,7 +72,13 @@ function ProjectScreenshot({
 
   if (isMobile) {
     return (
-      <div className="flex justify-center rounded-xl border border-border bg-gradient-to-b from-[#eef2f7] to-[#e8eef4] px-4 py-6 sm:px-8 sm:py-8">
+      <div
+        className="flex justify-center rounded-[1.25rem] border border-border px-4 py-6 sm:px-8 sm:py-8"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(243,241,251,0.9), rgba(252,251,248,0.95))",
+        }}
+      >
         <PhoneChrome>
           <div className="relative aspect-[9/19] w-full bg-white">
             <Image
@@ -81,7 +97,7 @@ function ProjectScreenshot({
 
   return (
     <BrowserChrome>
-      <div className="max-h-[520px] overflow-auto bg-[#e8eef4]">
+      <div className="max-h-[520px] overflow-auto" style={{ background: "#f3f1fb" }}>
         <Image
           src={image.src}
           alt={image.alt}
@@ -97,6 +113,7 @@ function ProjectScreenshot({
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
+  const { ui } = useContent();
   const [activeImage, setActiveImage] = useState(0);
   const hasImages = project.images.length > 0;
   const current = hasImages ? project.images[activeImage] : null;
@@ -120,11 +137,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 key={img.src}
                 type="button"
                 onClick={() => setActiveImage(i)}
-                className={`relative h-16 w-14 shrink-0 overflow-hidden rounded-md border bg-[#e8eef4] transition sm:h-16 sm:w-20 ${
+                className={`relative h-16 w-14 shrink-0 overflow-hidden rounded-xl border transition sm:h-16 sm:w-20 ${
                   i === activeImage
                     ? "border-accent ring-2 ring-[var(--ring)]"
                     : "border-border opacity-70 hover:opacity-100"
                 } ${img.variant === "mobile" ? "w-11" : "w-20"}`}
+                style={{ background: "#f3f1fb" }}
                 aria-label={`Show screenshot ${i + 1}`}
               >
                 <Image
@@ -142,7 +160,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       <div className="lg:col-span-6">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span className="font-mono text-xs text-fg-subtle">
+          <span className="text-xs font-semibold text-accent">
             {String(index + 1).padStart(2, "0")}
           </span>
           <h3 className="font-display text-2xl font-semibold tracking-tight text-fg sm:text-3xl">
@@ -155,7 +173,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </p>
 
         {project.highlight ? (
-          <p className="mt-4 border-l-2 border-accent pl-3 text-sm leading-relaxed text-fg">
+          <p className="mt-4 border-s-2 border-accent ps-3 text-sm leading-relaxed text-fg">
             {project.highlight}
           </p>
         ) : null}
@@ -163,7 +181,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <dl className="mt-8 space-y-5">
           <div>
             <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-subtle">
-              Problem
+              {ui.problem}
             </dt>
             <dd className="mt-1.5 text-sm leading-relaxed text-fg-muted">
               {project.problem}
@@ -171,7 +189,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
           <div>
             <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-subtle">
-              Solution
+              {ui.solution}
             </dt>
             <dd className="mt-1.5 text-sm leading-relaxed text-fg-muted">
               {project.solution}
@@ -186,13 +204,15 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         >
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-subtle">
-              Key Features
+              {ui.keyFeatures}
             </h4>
-            <ul className="mt-2 space-y-1.5 text-sm text-fg-muted">
+            <ul className="mt-2 list-none space-y-1.5 text-sm text-fg-muted">
               {project.keyFeatures.map((f) => (
-                <li key={f} className="flex gap-2">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                  <span>{f}</span>
+                <li key={f} className="pl-0">
+                  <span className="text-accent" aria-hidden="true">
+                    –{" "}
+                  </span>
+                  {f}
                 </li>
               ))}
             </ul>
@@ -200,13 +220,15 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {project.technicalChallenges.length > 0 ? (
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-subtle">
-                Technical Challenges
+                {ui.technicalChallenges}
               </h4>
-              <ul className="mt-2 space-y-1.5 text-sm text-fg-muted">
+              <ul className="mt-2 list-none space-y-1.5 text-sm text-fg-muted">
                 {project.technicalChallenges.map((c) => (
-                  <li key={c} className="flex gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-border-strong" />
-                    <span>{c}</span>
+                  <li key={c} className="pl-0">
+                    <span className="text-fg-subtle" aria-hidden="true">
+                      –{" "}
+                    </span>
+                    {c}
                   </li>
                 ))}
               </ul>
@@ -217,13 +239,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {project.technologies.length > 0 ? (
           <div className="mt-8">
             <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-subtle">
-              Technologies
+              {ui.technologies}
             </h4>
             <ul className="mt-2 flex flex-wrap gap-2">
               {project.technologies.map((t) => (
                 <li
                   key={t}
-                  className="rounded-md border border-border bg-bg px-2.5 py-1 text-xs text-fg-muted"
+                  className="rounded-full border border-border bg-bg px-3 py-1 text-xs text-fg-muted"
                 >
                   {t}
                 </li>
@@ -235,7 +257,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {project.whatILearned ? (
           <div className="mt-6">
             <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-subtle">
-              What I Learned
+              {ui.whatILearned}
             </h4>
             <p className="mt-1.5 text-sm leading-relaxed text-fg-muted">
               {project.whatILearned}
@@ -247,10 +269,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <button
             type="button"
             disabled={project.liveDemo.isPlaceholder}
-            className={`inline-flex items-center rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
-              project.liveDemo.isPlaceholder
-                ? "cursor-not-allowed bg-accent/70 text-white"
-                : "bg-accent text-white hover:bg-accent-hover"
+            className={`btn btn-primary ${
+              project.liveDemo.isPlaceholder ? "opacity-70" : ""
             }`}
             title={
               project.liveDemo.isPlaceholder
@@ -265,18 +285,16 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           >
             {project.liveDemo.label}
             {project.liveDemo.isPlaceholder ? (
-              <span className="ml-2 text-[10px] font-normal uppercase tracking-wide opacity-70">
-                fill me
+              <span className="ms-1 text-[10px] font-normal uppercase tracking-wide opacity-70">
+                {ui.fillMe}
               </span>
             ) : null}
           </button>
           <button
             type="button"
             disabled={project.github.isPlaceholder}
-            className={`inline-flex items-center rounded-md border px-4 py-2.5 text-sm font-medium transition-colors ${
-              project.github.isPlaceholder
-                ? "cursor-not-allowed border-border bg-bg text-fg-subtle"
-                : "border-border-strong bg-bg-elevated text-fg hover:border-accent hover:text-accent"
+            className={`btn btn-ghost ${
+              project.github.isPlaceholder ? "opacity-70" : ""
             }`}
             title={
               project.github.isPlaceholder
@@ -291,8 +309,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           >
             {project.github.label}
             {project.github.isPlaceholder ? (
-              <span className="ml-2 text-[10px] font-normal uppercase tracking-wide text-fg-subtle">
-                fill me
+              <span className="ml-1 text-[10px] font-normal uppercase tracking-wide text-fg-subtle">
+                {ui.fillMe}
               </span>
             ) : null}
           </button>

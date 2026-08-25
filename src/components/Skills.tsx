@@ -1,10 +1,17 @@
-import { sectionCopy, skillGroups } from "@/data/portfolioData";
+"use client";
+
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
+import { useContent } from "@/i18n/locale";
 
 export function Skills() {
+  const { sectionCopy, skillGroups } = useContent();
+
   return (
-    <section id="skills" className="section-pad border-y border-border bg-bg-elevated/60 py-16 sm:py-20">
+    <section
+      id="skills"
+      className="section-pad border-y border-border bg-bg-elevated/60 py-16 sm:py-20"
+    >
       <div className="container-narrow">
         <Reveal>
           <SectionHeading
@@ -15,8 +22,8 @@ export function Skills() {
           <div className="grid gap-8 md:grid-cols-3">
             {skillGroups.map((group, index) => (
               <div key={group.title} className="min-w-0">
-                <h3 className="mb-4 text-sm font-semibold tracking-wide text-fg">
-                  <span className="mr-2 font-mono text-xs text-fg-subtle">
+                <h3 className="mb-4 text-sm font-bold tracking-wide text-fg">
+                  <span className="me-2 font-mono text-xs text-fg-subtle">
                     0{index + 1}
                   </span>
                   {group.title}
@@ -25,7 +32,7 @@ export function Skills() {
                   {group.skills.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-md border border-border bg-bg px-2.5 py-1 text-sm text-fg-muted"
+                      className="rounded-full border border-border bg-bg px-3 py-1 text-sm text-fg-muted"
                     >
                       {skill}
                     </li>

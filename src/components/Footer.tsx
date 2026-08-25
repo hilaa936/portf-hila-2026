@@ -1,6 +1,10 @@
-import { footer, navLinks, socialLinks } from "@/data/portfolioData";
+"use client";
+
+import { useContent } from "@/i18n/locale";
 
 export function Footer() {
+  const { footer, navLinks, socialLinks, ui } = useContent();
+
   return (
     <footer className="section-pad border-t border-border py-10">
       <div className="container-narrow flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -16,7 +20,7 @@ export function Footer() {
             </a>
           ))}
           {socialLinks
-            .filter((s) => s.label !== "Email")
+            .filter((s) => s.label !== ui.email)
             .map((s) =>
               s.isPlaceholder ? (
                 <span key={s.label} className="text-sm text-fg-subtle">

@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { navLinks, person, socialLinks } from "@/data/portfolioData";
+import { useContent, useLocale } from "@/i18n/locale";
 
 export function Navbar() {
+  const { person, navLinks, socialLinks, ui } = useContent();
+  const { locale, toggleLocale } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -29,81 +31,96 @@ export function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="section-pad container-narrow flex h-16 items-center justify-between">
+      <div className="section-pad container-narrow flex h-16 items-center justify-between gap-3">
         <a
           href="#top"
-          className="font-display text-lg font-semibold tracking-tight text-fg"
+          className="font-display text-lg font-extrabold tracking-tight text-fg"
         >
           {person.firstName}
           <span className="text-accent">.</span>
         </a>
 
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-fg-muted transition-colors hover:text-fg"
+              className="text-sm font-medium text-fg-muted transition-colors hover:text-fg"
             >
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            className="rounded-md bg-accent px-3.5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+          <button
+            type="button"
+            onClick={toggleLocale}
+            className="rounded-full border border-border bg-bg-elevated px-3 py-1.5 text-xs font-bold text-fg-muted transition-colors hover:border-accent hover:text-accent"
+            aria-label={ui.langSwitchTo}
           >
-            Contact
+            {ui.langSwitchTo}
+          </button>
+          <a href="#contact" className="btn btn-primary !min-h-0 px-4 py-2 text-sm">
+            {ui.contactNav}
           </a>
         </nav>
 
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-fg md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">Menu</span>
-          <div className="flex w-4 flex-col gap-1.5">
-            <span
-              className={`h-px w-full bg-fg transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
-            />
-            <span
-              className={`h-px w-full bg-fg transition-opacity ${open ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`h-px w-full bg-fg transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
-            />
-          </div>
-        </button>
+        <div className="flex items-center gap-2 md:gap-3 lg:hidden">
+          <button
+            type="button"
+            onClick={toggleLocale}
+            className="rounded-full border border-border bg-bg-elevated px-3 py-1.5 text-xs font-bold text-fg-muted"
+            aria-label={ui.langSwitchTo}
+          >
+            {locale === "he" ? "EN" : "עב"}
+          </button>
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg-elevated text-fg"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? ui.closeMenu : ui.menu}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">{ui.menu}</span>
+            <div className="flex w-4 flex-col gap-1.5">
+              <span
+                className={`h-px w-full bg-fg transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+              />
+              <span
+                className={`h-px w-full bg-fg transition-opacity ${open ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`h-px w-full bg-fg transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+              />
+            </div>
+          </button>
+        </div>
       </div>
 
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-border bg-bg section-pad pb-8 pt-4 md:hidden"
+          className="border-t border-border bg-bg section-pad pb-8 pt-4 lg:hidden"
         >
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-md px-2 py-3 text-base text-fg"
+                className="rounded-xl px-2 py-3 text-base text-fg"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
               </a>
             ))}
           </nav>
-          <div className="mt-4 flex gap-3 border-t border-border pt-4">
+          <div className="mt-4 flex flex-wrap gap-3 border-t border-border pt-4">
             {socialLinks
-              .filter((s) => s.label !== "Email")
+              .filter((s) => s.label !== ui.email)
               .map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
-                  className="text-sm text-fg-muted underline-offset-4 hover:text-fg hover:underline"
+                  className="text-sm text-fg-muted underline-offset-4 hover:text-accent hover:underline"
                   onClick={() => setOpen(false)}
                 >
                   {s.label}

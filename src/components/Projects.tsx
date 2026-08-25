@@ -1,9 +1,13 @@
-import { projects, sectionCopy } from "@/data/portfolioData";
+"use client";
+
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
+import { useContent } from "@/i18n/locale";
 
 export function Projects() {
+  const { sectionCopy, projects } = useContent();
+
   return (
     <section id="projects" className="section-pad py-20 sm:py-28">
       <div className="container-narrow">

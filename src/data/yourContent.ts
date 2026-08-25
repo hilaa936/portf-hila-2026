@@ -9,7 +9,7 @@ export const yourContent = {
   // ----------------------------------------------------------
   // 1) פרטים אישיים וקשר
   // ----------------------------------------------------------
-  firstName: "Hila",
+  firstName: "Hila", // HE: הילה כהן
   fullName: "Hila Cohen",
   role: "AI Solutions Engineer | Solutions Engineer",
   email: "hila.aveksis@gmail.com",

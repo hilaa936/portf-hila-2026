@@ -308,6 +308,34 @@ function buildEn(): SiteContent {
 
   const projects: Project[] = [
     {
+      id: "botkale-site",
+      title: "Botkale",
+      tagline: "AI and automation for small businesses",
+      summary:
+        "The independent platform I am building: ready AI actions for small businesses, without learning automation jargon. Includes document collection on WhatsApp and tools for setting up business agents.",
+      problem:
+        "Small businesses want AI to do real work, but they do not have time to learn automation tools or connect systems themselves.",
+      solution:
+        "Botkale brings ready actions in the language of the business: answering leads, collecting documents on WhatsApp with reminders, and marketing content.",
+      keyFeatures: [
+        "Sales agent that answers leads and books meetings",
+        "WhatsApp document collection with reminders until completion",
+        "Marketing and content agent",
+        "Discovery, setup, and ongoing guidance",
+      ],
+      technicalChallenges: [...bot.technicalChallenges],
+      technologies: [...bot.technologies],
+      whatILearned: bot.whatILearned,
+      images: sharedImages.botkale,
+      liveDemo: {
+        label: "Visit Botkale",
+        href: "https://www.botkale.com",
+        isPlaceholder: false,
+      },
+      github: makeLink(ui.github, bot.githubUrl),
+      highlight: "Public site: botkale.com",
+    },
+    {
       id: "botkale",
       title: "Botkale Wizard",
       tagline: "Internal tooling inside the Botkale company",
@@ -482,8 +510,8 @@ function buildEn(): SiteContent {
           text: "Ask what Botkale should do for you — actions, not triggers, nodes, or workflows.",
         },
       ],
-      ctaLabel: "See Botkale Wizard in projects",
-      ctaHref: "#botkale",
+      ctaLabel: "See Botkale in projects",
+      ctaHref: "#botkale-site",
     },
     skillGroups: fill.skillGroups.map((g) => ({
       title: g.title,
@@ -648,6 +676,42 @@ function buildHe(): SiteContent {
   ];
 
   const projects: Project[] = [
+    {
+      id: "botkale-site",
+      title: "בוטק׳לה",
+      tagline: "AI ואוטומציה לעסקים קטנים",
+      summary:
+        "הפלטפורמה העצמאית שאני בונה: פעולות AI מוכנות לעסקים קטנים, בלי ללמוד שפת אוטומציות. כוללת איסוף מסמכים בוואטסאפ וכלים להקמת סוכנים עסקיים.",
+      problem:
+        "עסקים קטנים רוצים ש־AI יעשה עבודה אמיתית, אבל אין להם זמן ללמוד כלי אוטומציה או לחבר מערכות בעצמם.",
+      solution:
+        "בוטק׳לה מביאה פעולות מוכנות בשפה של העסק: מענה ללידים, איסוף מסמכים בוואטסאפ עם תזכורות, ותוכן שיווקי.",
+      keyFeatures: [
+        "סוכן מכירות שעונה ללידים וקובע פגישות",
+        "איסוף מסמכים בוואטסאפ עם תזכורות עד השלמה",
+        "סוכן שיווק ותוכן",
+        "אפיון, הטמעה וליווי",
+      ],
+      technicalChallenges: [
+        "הפיכת הקשר עסקי להגדרת סוכן מובנית",
+        "בניית בסיסי ידע ששימושיים בשיחות אמיתיות עם לקוחות",
+        "חיבור CRM, יומנים, פלטפורמות הודעות ו־API חיצוניים",
+      ],
+      technologies: [...fill.projects.botkale.technologies],
+      whatILearned:
+        "איך לעצב פתרונות AI סביב תהליכי עבודה עסקיים אמיתיים: מגילוי וארכיטקטורה ועד הקמת סוכן, אינטגרציות והטמעה.",
+      images: sharedImages.botkale.map((img) => ({
+        ...img,
+        alt: img.alt.replace("BotKale", "בוטק׳לה"),
+      })),
+      liveDemo: {
+        label: "לאתר בוטק׳לה",
+        href: "https://www.botkale.com",
+        isPlaceholder: false,
+      },
+      github: makeLink(ui.github, fill.projects.botkale.githubUrl),
+      highlight: "האתר: botkale.com",
+    },
     {
       id: "botkale",
       title: "בוטקלה וויזארד",
@@ -842,8 +906,8 @@ function buildHe(): SiteContent {
           text: "שואלים מה בוטק׳לה תעשה בשבילכם: פעולות, לא טריגרים, צמתים או וורקפלואים.",
         },
       ],
-      ctaLabel: "לבוטקלה וויזארד בפרויקטים",
-      ctaHref: "#botkale",
+      ctaLabel: "לבוטק׳לה בפרויקטים",
+      ctaHref: "#botkale-site",
     },
     skillGroups: [
       {

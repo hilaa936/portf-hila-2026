@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import type { Project, ProjectImage } from "@/data/siteContent";
 import { useContent, useLocale } from "@/i18n/locale";
@@ -121,13 +121,18 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const { ui, contact } = useContent();
   const { locale } = useLocale();
   const [activeImage, setActiveImage] = useState(0);
+  const [demoOpen, setDemoOpen] = useState(false);
   const hasImages = project.images.length > 0;
   const current = hasImages ? project.images[activeImage] : null;
   const phone = contact.phone || "+972-52-8502568";
   const demoText =
     locale === "he"
-      ? `היי, אשמח לקבל דמו חי ופרטים נוספים על הפרויקט: ${project.title}`
-      : `Hi, I’d like a live demo and more details about the project: ${project.title}`;
+      ? `היי, אשמח לקבל דמו חי של הפרויקט: ${project.title}`
+      : `Hi, I’d like a live demo of: ${project.title}`;
+  const demoNote =
+    locale === "he"
+      ? `לקבלת דמו חי של ${project.title}, שלחו לי הודעה בוואטסאפ ואשמח לשלוח לכם.`
+      : `For a live demo of ${project.title}, send me a WhatsApp message and I’ll be happy to send it to you.`;
   const githubText =
     locale === "he"
       ? `היי, אשמח לקבל קישור ל-GitHub ופרטים נוספים על הפרויקט: ${project.title}`
@@ -281,14 +286,24 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         ) : null}
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href={whatsappLink(phone, demoText)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            {project.liveDemo.label}
-          </a>
+          {project.liveDemo.href.startsWith("http") ? (
+            <a
+              href={project.liveDemo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              {project.liveDemo.label}
+            </a>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => setDemoOpen(true)}
+            >
+              {project.liveDemo.label}
+            </button>
+          )}
           <a
             href={whatsappLink(phone, githubText)}
             target="_blank"
@@ -298,7 +313,80 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             {project.github.label}
           </a>
         </div>
+        {demoOpen ? (
+          <DemoNote
+            title={project.liveDemo.label}
+            text={demoNote}
+            whatsappHref={whatsappLink(phone, demoText)}
+            whatsappLabel={ui.whatsapp}
+            closeLabel={ui.leadClose}
+            onClose={() => setDemoOpen(false)}
+          />
+        ) : null}
       </div>
     </article>
+  );
+}
+
+function DemoNote({
+  title,
+  text,
+  whatsappHref,
+  whatsappLabel,
+  closeLabel,
+  onClose,
+}: {
+  title: string;
+  text: string;
+  whatsappHref: string;
+  whatsappLabel: string;
+  closeLabel: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(16,26,58,0.55)] p-5"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="demo-note-title"
+        className="soft-card w-full max-w-md px-6 py-7 text-center sm:px-8"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <p
+          id="demo-note-title"
+          className="text-xs font-bold uppercase tracking-[0.16em] text-accent"
+        >
+          {title}
+        </p>
+        <p className="mt-4 font-display text-2xl font-extrabold leading-snug text-fg">
+          {text}
+        </p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
+            {whatsappLabel}
+          </a>
+          <button type="button" className="btn btn-ghost" onClick={onClose}>
+            {closeLabel}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

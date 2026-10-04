@@ -9,9 +9,9 @@ export const yourContent = {
   // ----------------------------------------------------------
   // 1) פרטים אישיים וקשר
   // ----------------------------------------------------------
-  firstName: "Hila", // HE: הילה כהן
-  fullName: "Hila Cohen",
-  role: "AI Solutions Engineer | Solutions Engineer",
+  firstName: "Hila",
+  fullName: "Hila Aveksis Cohen",
+  role: "Freelance software solutions for businesses and software development for large companies",
   email: "hila.aveksis@gmail.com",
   phone: "+972-52-8502568",
   phoneHref: "tel:+972528502568",
@@ -26,9 +26,9 @@ export const yourContent = {
   headline:
     "AI Solutions Engineer building intelligent products and business systems",
   subheadline:
-    "Solutions Engineer with 6+ years of software engineering experience delivering enterprise software and AI-powered solutions.",
+    "A freelancer delivering software solutions for businesses and software development for large companies, with 6+ years of engineering experience.",
   aboutParagraphs: [
-    "Solutions Engineer with 6+ years of software engineering experience delivering enterprise software and AI-powered solutions.",
+    "I am a freelancer for software solutions for businesses and for software development for large companies, with 6+ years of software engineering experience.",
     "Experienced in translating business needs into scalable technical solutions, building AI agents with LLMs, integrating APIs, designing solution architectures, and leading end-to-end implementations.",
     "What I enjoy most is the path from problem → architecture → implementation — understanding the need, choosing the right approach, and shipping a working solution.",
   ],
@@ -110,29 +110,38 @@ export const yourContent = {
         title: "Machine Learning & Deep Learning with Python",
         detail: "John Bryce Training — 336 academic hours",
         certificateHref: "/certificates/john-bryce-ml.jpg",
+        imageSrc: "/certificates/john-bryce-ml.jpg",
       },
       {
-        title: "Neural Networks and Deep Learning",
-        detail: "DeepLearning.AI",
-        certificateHref: "/certificates/coursera-certificate.pdf",
+        title: "Structuring Machine Learning Projects",
+        detail: "DeepLearning.AI · Coursera · February 2025",
+        certificateHref: "/certificates/structuring-ml-projects.png",
+        imageSrc: "/certificates/structuring-ml-projects.png",
+      },
+      {
+        title:
+          "Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization",
+        detail: "DeepLearning.AI · Coursera · February 2025",
+        certificateHref: "https://coursera.org/verify/BGOFUPLSPSZ6",
+        imageSrc: "/certificates/improving-deep-neural-networks-full.png",
       },
       {
         title: "Machine Learning with Python",
-        detail: "IBM",
-        certificateHref: "/certificates/coursera-ibm-data-analyst.pdf",
+        detail: "IBM · Coursera · January 2023",
+        certificateHref: "https://coursera.org/verify/6LUMFFK2ZKRW",
+        imageSrc: "/certificates/machine-learning-with-python-full.png",
       },
       {
-        // If this is a known course, replace the title below (Coursera share page was not readable).
-        title: "Coursera Certificate",
-        detail: "Coursera — shared credential",
-        certificateHref:
-          "https://www.coursera.org/share/ef8d8911a51b50d0e1c914edc7153643",
+        title: "Neural Networks and Deep Learning",
+        detail: "DeepLearning.AI · Coursera · May 2022",
+        certificateHref: "https://coursera.org/verify/ZKSQXQ7ZSW6S",
+        imageSrc: "/certificates/neural-networks-deep-learning.png",
       },
       {
         title: "Data Analysis with Python",
-        detail: "IBM · Coursera",
-        certificateHref:
-          "https://www.coursera.org/share/bce07c5dca13de369c8fdbed5dac8797",
+        detail: "IBM · Coursera · June 2021",
+        certificateHref: "https://coursera.org/verify/3ZNWQSSMSSWT",
+        imageSrc: "/certificates/data-analysis-with-python.png",
       },
     ],
   },

@@ -16,18 +16,18 @@ export function buildLocaleMetadata(locale: Locale): Metadata {
 
   const title =
     locale === "he"
-      ? "הילה כהן | מהנדסת פתרונות AI | פרילנסרית AI Solutions Engineer"
-      : "Hila Cohen | AI Solutions Engineer | Freelance AI & Solutions Engineer";
+      ? "הילה אבקסיס כהן | מהנדסת פתרונות AI | פרילנסרית AI Solutions Engineer"
+      : "Hila Aveksis Cohen | AI Solutions Engineer | Freelance AI & Solutions Engineer";
 
   const description =
     locale === "he"
-      ? "הילה כהן — מהנדסת פתרונות AI ופרילנסרית: סוכני AI, אינטגרציות, ארכיטקטורת פתרון ופיתוח מקצה לקצה. מייסדת בוטק׳לה."
-      : "Hila Cohen — freelance AI Solutions Engineer: AI agents, integrations, solution architecture, and end-to-end product delivery. Founder of Botkale.";
+      ? "הילה אבקסיס כהן — פרילנסרית לפתרונות תוכנה לעסקים ולפיתוח תוכנה לחברות גדולות. סוכני AI, אינטגרציות ופיתוח מקצה לקצה."
+      : "Hila Aveksis Cohen — freelancer for software solutions for businesses and software development for large companies. AI agents, integrations, and end-to-end delivery.";
 
   const keywords =
     locale === "he"
       ? [
-          "הילה כהן",
+          "הילה אבקסיס כהן",
           "פרילנסרית AI",
           "מהנדסת פתרונות AI",
           "AI Solutions Engineer",
@@ -39,7 +39,7 @@ export function buildLocaleMetadata(locale: Locale): Metadata {
           "OpenAI",
         ]
       : [
-          "Hila Cohen",
+          "Hila Aveksis Cohen",
           "freelance AI Solutions Engineer",
           "AI Solutions Engineer freelancer",
           "AI agents",
@@ -55,8 +55,8 @@ export function buildLocaleMetadata(locale: Locale): Metadata {
     title,
     description,
     keywords,
-    authors: [{ name: locale === "he" ? "הילה כהן" : "Hila Cohen" }],
-    creator: locale === "he" ? "הילה כהן" : "Hila Cohen",
+    authors: [{ name: locale === "he" ? "הילה אבקסיס כהן" : "Hila Aveksis Cohen" }],
+    creator: locale === "he" ? "הילה אבקסיס כהן" : "Hila Aveksis Cohen",
     alternates: {
       canonical: url,
       languages: {
@@ -69,7 +69,7 @@ export function buildLocaleMetadata(locale: Locale): Metadata {
       title,
       description,
       url,
-      siteName: locale === "he" ? "הילה כהן" : "Hila Cohen",
+      siteName: locale === "he" ? "הילה אבקסיס כהן" : "Hila Aveksis Cohen",
       locale: content.siteMeta.locale,
       alternateLocale: locale === "he" ? ["en_US"] : ["he_IL"],
       type: "website",
@@ -102,8 +102,8 @@ export function buildPersonJsonLd(locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: isHe ? "הילה כהן" : "Hila Cohen",
-    alternateName: ["Hila Cohen", "הילה כהן"],
+    name: isHe ? "הילה אבקסיס כהן" : "Hila Aveksis Cohen",
+    alternateName: ["Hila Aveksis Cohen", "הילה אבקסיס כהן", "Hila Cohen", "הילה כהן"],
     url: absoluteUrl(`/${locale}`),
     email: content.person.email || undefined,
     telephone: content.person.phone || undefined,
@@ -111,8 +111,8 @@ export function buildPersonJsonLd(locale: Locale) {
       ? "מהנדסת פתרונות AI / AI Solutions Engineer"
       : "AI Solutions Engineer",
     description: isHe
-      ? "פרילנסרית ומהנדסת פתרונות AI — סוכני AI, אינטגרציות ופיתוח מוצרים מקצה לקצה. מייסדת בוטק׳לה."
-      : "Freelance AI Solutions Engineer — AI agents, integrations, and end-to-end product delivery. Founder of Botkale.",
+      ? "פרילנסרית לפתרונות תוכנה לעסקים ולפיתוח תוכנה לחברות גדולות."
+      : "Freelancer for software solutions for businesses and software development for large companies.",
     knowsAbout: isHe
       ? [
           "AI Solutions Engineering",
@@ -135,7 +135,7 @@ export function buildPersonJsonLd(locale: Locale) {
     worksFor: {
       "@type": "Organization",
       name: isHe ? "בוטק׳לה" : "Botkale",
-      founder: isHe ? "הילה כהן" : "Hila Cohen",
+      founder: isHe ? "הילה אבקסיס כהן" : "Hila Aveksis Cohen",
     },
     sameAs: content.socialLinks
       .filter((s) => !s.isPlaceholder && s.href.startsWith("http"))

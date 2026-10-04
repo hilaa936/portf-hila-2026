@@ -34,9 +34,9 @@ export function Navbar() {
       <div className="section-pad container-narrow flex h-16 items-center justify-between gap-3">
         <a
           href="#top"
-          className="font-display text-lg font-extrabold tracking-tight text-fg"
+          className="font-display text-sm font-extrabold tracking-tight text-fg sm:text-base"
         >
-          {person.firstName}
+          {person.fullName}
           <span className="text-accent">.</span>
         </a>
 

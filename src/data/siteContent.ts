@@ -44,6 +44,7 @@ export type EducationItem = {
   detail: string;
   type: "degree" | "course" | "independent";
   certificateHref?: string;
+  imageSrc?: string;
   visible?: boolean;
 };
 
@@ -77,9 +78,19 @@ export type UiLabels = {
   email: string;
   phone: string;
   linkedIn: string;
+  whatsapp: string;
   menu: string;
   closeMenu: string;
   langSwitchTo: string;
+  leadTitle: string;
+  leadText: string;
+  leadName: string;
+  leadEmail: string;
+  leadPhone: string;
+  leadSubmit: string;
+  leadSuccess: string;
+  leadClose: string;
+  leadRequired: string;
 };
 
 export type SiteContent = {
@@ -236,7 +247,7 @@ const sharedImages = {
 function buildEn(): SiteContent {
   const person = {
     firstName: "Hila",
-    fullName: "Hila Cohen",
+    fullName: "Hila Aveksis Cohen",
     role: fill.role,
     email: isFilled(fill.email) ? fill.email.trim() : "",
     phone: isFilled(fill.phone) ? fill.phone.trim() : "",
@@ -262,14 +273,23 @@ function buildEn(): SiteContent {
     email: "Email",
     phone: "Phone",
     linkedIn: "LinkedIn",
+    whatsapp: "WhatsApp",
     menu: "Menu",
     closeMenu: "Close menu",
     langSwitchTo: "עברית",
+    leadTitle: "Get the links and more details",
+    leadText:
+      "Leave your details and I’ll send you the links and additional information.",
+    leadName: "Name",
+    leadEmail: "Email",
+    leadPhone: "Phone",
+    leadSubmit: "Send details",
+    leadSuccess: "Thanks. I’ll get back to you shortly.",
+    leadClose: "Close",
+    leadRequired: "Please add your name and a way to reach you.",
   };
 
   const socialLinks: SocialLink[] = [
-    makeLink(ui.linkedIn, fill.linkedInUrl),
-    makeLink(ui.github, fill.githubUrl),
     makeLink(ui.email, isFilled(person.email) ? `mailto:${person.email}` : ""),
     ...(isFilled(person.phone)
       ? [
@@ -404,9 +424,9 @@ function buildEn(): SiteContent {
     locale: "en",
     dir: "ltr",
     siteMeta: {
-      title: "Hila Cohen | AI Solutions Engineer | Freelance",
+      title: "Hila Aveksis Cohen | AI Solutions Engineer | Freelance",
       description:
-        "Hila Cohen — freelance AI Solutions Engineer building AI agents, integrations, and end-to-end products. Founder of Botkale.",
+        "Hila Aveksis Cohen — freelancer for software solutions for businesses and software development for large companies.",
       url: isFilled(fill.websiteUrl) ? fill.websiteUrl.trim() : "http://localhost:3000",
       ogImage: "/og-placeholder.svg",
       locale: "en_US",
@@ -424,7 +444,7 @@ function buildEn(): SiteContent {
     ],
     socialLinks,
     hero: {
-      name: person.firstName,
+      name: person.fullName,
       role: person.role,
       headline: fill.headline,
       subheadline: fill.subheadline,
@@ -551,20 +571,21 @@ function buildEn(): SiteContent {
         detail: cert.detail,
         type: "course" as const,
         certificateHref: cert.certificateHref,
+        imageSrc: cert.imageSrc,
         visible: true,
       })),
     ],
     contact: {
       title: "Contact",
       headline: "Let’s build something useful.",
-      text: "Open to Solutions Engineer, AI Solutions Engineer, and software roles focused on AI-powered products, integrations and end-to-end delivery.",
+      text: "Freelance software solutions for businesses, and software development for large companies.",
       email: person.email,
       phone: person.phone,
       phoneHref: person.phoneHref,
       links: socialLinks,
     },
     footer: {
-      note: `© ${new Date().getFullYear()} ${person.fullName}. Built with care.`,
+      note: `© ${new Date().getFullYear()} ${person.fullName}`,
     },
     ui,
   };
@@ -573,8 +594,8 @@ function buildEn(): SiteContent {
 function buildHe(): SiteContent {
   const person = {
     firstName: "הילה",
-    fullName: "הילה כהן",
-    role: "מהנדסת פתרונות AI | Solutions Engineer",
+    fullName: "הילה אבקסיס כהן",
+    role: "פרילנסרית | פתרונות תוכנה לעסקים ופיתוח לחברות גדולות",
     email: isFilled(fill.email) ? fill.email.trim() : "",
     phone: isFilled(fill.phone) ? fill.phone.trim() : "",
     phoneHref: isFilled(fill.phoneHref) ? fill.phoneHref.trim() : "",
@@ -599,14 +620,22 @@ function buildHe(): SiteContent {
     email: "אימייל",
     phone: "טלפון",
     linkedIn: "LinkedIn",
+    whatsapp: "וואטסאפ",
     menu: "תפריט",
     closeMenu: "סגירת תפריט",
     langSwitchTo: "English",
+    leadTitle: "לקבלת קישורים ופרטים נוספים",
+    leadText: "השאירו פרטים ואשלח אליכם את הקישורים ומידע נוסף על הפרויקט.",
+    leadName: "שם",
+    leadEmail: "אימייל",
+    leadPhone: "טלפון",
+    leadSubmit: "שליחת פרטים",
+    leadSuccess: "תודה. הפרטים נקלטו — אחזור אליכם בהקדם.",
+    leadClose: "סגירה",
+    leadRequired: "נא למלא שם ודרך ליצירת קשר.",
   };
 
   const socialLinks: SocialLink[] = [
-    makeLink(ui.linkedIn, fill.linkedInUrl),
-    makeLink(ui.github, fill.githubUrl),
     makeLink(ui.email, isFilled(person.email) ? `mailto:${person.email}` : ""),
     ...(isFilled(person.phone)
       ? [
@@ -744,9 +773,9 @@ function buildHe(): SiteContent {
     locale: "he",
     dir: "rtl",
     siteMeta: {
-      title: "הילה כהן | מהנדסת פתרונות AI | פרילנסרית",
+      title: "הילה אבקסיס כהן | מהנדסת פתרונות AI | פרילנסרית",
       description:
-        "הילה כהן — מהנדסת פתרונות AI ופרילנסרית: סוכני AI, אינטגרציות ופיתוח מקצה לקצה. מייסדת בוטק׳לה.",
+        "הילה אבקסיס כהן — פרילנסרית לפתרונות תוכנה לעסקים ולפיתוח תוכנה לחברות גדולות.",
       url: isFilled(fill.websiteUrl) ? fill.websiteUrl.trim() : "http://localhost:3000",
       ogImage: "/og-placeholder.svg",
       locale: "he_IL",
@@ -764,18 +793,18 @@ function buildHe(): SiteContent {
     ],
     socialLinks,
     hero: {
-      name: person.firstName,
+      name: person.fullName,
       role: person.role,
       headline: "מהנדסת פתרונות AI שבונה מוצרים חכמים ומערכות עסקיות",
       subheadline:
-        "מהנדסת פתרונות עם ניסיון של מעל 6 שנים בפיתוח תוכנה ארגונית ופתרונות מבוססי AI.",
+        "פרילנסרית לפתרונות תוכנה לעסקים ולפיתוח תוכנה לחברות גדולות, עם ניסיון של מעל 6 שנים.",
       primaryCta: { label: "לפרויקטים", href: "#projects" },
       secondaryCta: { label: "צרו קשר", href: "#contact" },
     },
     about: {
       title: "אודות",
       paragraphs: [
-        "מהנדסת פתרונות עם ניסיון של מעל 6 שנים בפיתוח תוכנה ארגונית ופתרונות מבוססי AI.",
+        "אני פרילנסרית לפתרונות תוכנה לעסקים ולפיתוח תוכנה לחברות גדולות, עם ניסיון של מעל 6 שנים בפיתוח תוכנה ופתרונות מבוססי AI.",
         "מנוסה בתרגום צרכים עסקיים לפתרונות טכניים ניתנים להרחבה, בניית סוכני AI עם מודלי שפה, אינטגרציות API, עיצוב ארכיטקטורת פתרון והובלת יישום מקצה לקצה.",
         "מה שאני הכי אוהבת זה הדרך מבעיה לארכיטקטורה ליישום: להבין את הצורך, לבחור גישה נכונה, ולהוציא פתרון שעובד.",
       ],
@@ -940,50 +969,62 @@ function buildHe(): SiteContent {
         detail: "ג׳ון ברייס הדרכה — 336 שעות אקדמיות",
         type: "course",
         certificateHref: "/certificates/john-bryce-ml.jpg",
+        imageSrc: "/certificates/john-bryce-ml.jpg",
         visible: true,
       },
       {
-        title: "Neural Networks and Deep Learning",
-        detail: "DeepLearning.AI",
+        title: "Structuring Machine Learning Projects",
+        detail: "DeepLearning.AI · Coursera · פברואר 2025",
         type: "course",
-        certificateHref: "/certificates/coursera-certificate.pdf",
+        certificateHref: "/certificates/structuring-ml-projects.png",
+        imageSrc: "/certificates/structuring-ml-projects.png",
+        visible: true,
+      },
+      {
+        title:
+          "Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization",
+        detail: "DeepLearning.AI · Coursera · פברואר 2025",
+        type: "course",
+        certificateHref: "https://coursera.org/verify/BGOFUPLSPSZ6",
+        imageSrc: "/certificates/improving-deep-neural-networks-full.png",
         visible: true,
       },
       {
         title: "Machine Learning with Python",
-        detail: "IBM",
+        detail: "IBM · Coursera · ינואר 2023",
         type: "course",
-        certificateHref: "/certificates/coursera-ibm-data-analyst.pdf",
+        certificateHref: "https://coursera.org/verify/6LUMFFK2ZKRW",
+        imageSrc: "/certificates/machine-learning-with-python-full.png",
         visible: true,
       },
       {
-        title: "תעודת Coursera",
-        detail: "Coursera — תעודה משותפת",
+        title: "Neural Networks and Deep Learning",
+        detail: "DeepLearning.AI · Coursera · מאי 2022",
         type: "course",
-        certificateHref:
-          "https://www.coursera.org/share/ef8d8911a51b50d0e1c914edc7153643",
+        certificateHref: "https://coursera.org/verify/ZKSQXQ7ZSW6S",
+        imageSrc: "/certificates/neural-networks-deep-learning.png",
         visible: true,
       },
       {
         title: "Data Analysis with Python",
-        detail: "IBM · Coursera",
+        detail: "IBM · Coursera · יוני 2021",
         type: "course",
-        certificateHref:
-          "https://www.coursera.org/share/bce07c5dca13de369c8fdbed5dac8797",
+        certificateHref: "https://coursera.org/verify/3ZNWQSSMSSWT",
+        imageSrc: "/certificates/data-analysis-with-python.png",
         visible: true,
       },
     ],
     contact: {
       title: "צור קשר",
       headline: "בואו נבנה משהו שימושי.",
-      text: "פתוחה לתפקידי Solutions Engineer, AI Solutions Engineer, ותפקידי תוכנה סביב מוצרי AI, אינטגרציות ומסירה מקצה לקצה.",
+      text: "פרילנסרית לפתרונות תוכנה לעסקים ולפיתוח תוכנה לחברות גדולות.",
       email: person.email,
       phone: person.phone,
       phoneHref: person.phoneHref,
       links: socialLinks,
     },
     footer: {
-      note: `© ${new Date().getFullYear()} ${person.fullName}. נבנה בקפידה.`,
+      note: `© ${new Date().getFullYear()} ${person.fullName}`,
     },
     ui,
   };

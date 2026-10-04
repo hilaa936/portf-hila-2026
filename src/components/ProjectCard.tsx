@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import type { Project, ProjectImage } from "@/data/siteContent";
-import { useContent } from "@/i18n/locale";
+import { useContent, useLocale } from "@/i18n/locale";
 
 type ProjectCardProps = {
   project: Project;
@@ -112,11 +112,26 @@ function ProjectScreenshot({
   );
 }
 
+function whatsappLink(phone: string, text: string) {
+  const digits = phone.replace(/\D/g, "");
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}
+
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const { ui } = useContent();
+  const { ui, contact } = useContent();
+  const { locale } = useLocale();
   const [activeImage, setActiveImage] = useState(0);
   const hasImages = project.images.length > 0;
   const current = hasImages ? project.images[activeImage] : null;
+  const phone = contact.phone || "+972-52-8502568";
+  const demoText =
+    locale === "he"
+      ? `היי, אשמח לקבל דמו חי ופרטים נוספים על הפרויקט: ${project.title}`
+      : `Hi, I’d like a live demo and more details about the project: ${project.title}`;
+  const githubText =
+    locale === "he"
+      ? `היי, אשמח לקבל קישור ל-GitHub ופרטים נוספים על הפרויקט: ${project.title}`
+      : `Hi, I’d like the GitHub link and more details about the project: ${project.title}`;
 
   return (
     <article
@@ -266,54 +281,22 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         ) : null}
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <button
-            type="button"
-            disabled={project.liveDemo.isPlaceholder}
-            className={`btn btn-primary ${
-              project.liveDemo.isPlaceholder ? "opacity-70" : ""
-            }`}
-            title={
-              project.liveDemo.isPlaceholder
-                ? "Fill liveDemoUrl in src/data/yourContent.ts"
-                : undefined
-            }
-            onClick={() => {
-              if (!project.liveDemo.isPlaceholder) {
-                window.open(project.liveDemo.href, "_blank", "noopener,noreferrer");
-              }
-            }}
+          <a
+            href={whatsappLink(phone, demoText)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
           >
             {project.liveDemo.label}
-            {project.liveDemo.isPlaceholder ? (
-              <span className="ms-1 text-[10px] font-normal uppercase tracking-wide opacity-70">
-                {ui.fillMe}
-              </span>
-            ) : null}
-          </button>
-          <button
-            type="button"
-            disabled={project.github.isPlaceholder}
-            className={`btn btn-ghost ${
-              project.github.isPlaceholder ? "opacity-70" : ""
-            }`}
-            title={
-              project.github.isPlaceholder
-                ? "Fill githubUrl in src/data/yourContent.ts"
-                : undefined
-            }
-            onClick={() => {
-              if (!project.github.isPlaceholder) {
-                window.open(project.github.href, "_blank", "noopener,noreferrer");
-              }
-            }}
+          </a>
+          <a
+            href={whatsappLink(phone, githubText)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-ghost"
           >
             {project.github.label}
-            {project.github.isPlaceholder ? (
-              <span className="ml-1 text-[10px] font-normal uppercase tracking-wide text-fg-subtle">
-                {ui.fillMe}
-              </span>
-            ) : null}
-          </button>
+          </a>
         </div>
       </div>
     </article>

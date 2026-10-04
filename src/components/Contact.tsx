@@ -21,7 +21,22 @@ export function Contact() {
               {contact.text}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {contact.links.map((link) => {
+              {contact.phone ? (
+                <a
+                  href={`https://wa.me/${contact.phone.replace(/\D/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-bold text-accent transition-opacity hover:opacity-90"
+                >
+                  {ui.whatsapp}
+                </a>
+              ) : null}
+              {contact.links
+                .filter(
+                  (link) =>
+                    link.label !== ui.linkedIn && link.label !== ui.github,
+                )
+                .map((link) => {
                 const isPrimary =
                   link.label === ui.email ||
                   link.label === ui.phone ||
